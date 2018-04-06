@@ -14,13 +14,17 @@ import {
 export default class Home extends Component {
 
     componentDidMount(){
-        this.props.getCharacters();
+        let query = this.props.navigation.state.params.searchTerm;
+        console.log(`Received query param: ${query}`)
+        if (query)
+            this.props.getCharacters(query);
+        else
+            this.props.getCharacters();
     }
 
     render() {
         let characters = ""
         if(this.props.characters){
-            console.log(`${this.props.characters}`);
             characters = this.props.characters.map((item, index)=>{
                 let thumbnail = null;
                 if (item.thumbnail)

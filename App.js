@@ -13,17 +13,21 @@ import marvelApp from './app/reducers'
 import { StackNavigator } from 'react-navigation';
 
 import HomeContainer from "./app/containers/Home";
+import SearchContainer from "./app/containers/Search";
 
 let store = createStore(marvelApp, applyMiddleware(thunk))
 
 const RootStack = StackNavigator(
   {
-    Home: {
+    SearchResults: {
       screen: HomeContainer,
+    },
+    Search: {
+      screen: SearchContainer
     }
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Search',
   }
 );
 

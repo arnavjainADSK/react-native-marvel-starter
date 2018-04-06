@@ -9,6 +9,11 @@ const marvel = (state = {}, action) => {
       nextState.characters = action.characters;
       return nextState;
     }
+    case 'SEARCH_TEXT_CHANGE': {
+      nextState.text = action.text;
+      return nextState;
+    }
+
     default:
       return nextState;
   }
