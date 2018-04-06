@@ -28,6 +28,11 @@ const RootStack = StackNavigator(
 );
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    console.disableYellowBox = true;
+  }
+
   render() {
     return (
       <Provider store={store}>

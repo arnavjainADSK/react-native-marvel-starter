@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 
 import {
     Platform,
+    Dimensions,
     StyleSheet,
     Text,
     View,
+    Image,
     ScrollView,
     Button
 } from 'react-native';
@@ -18,18 +20,41 @@ export default class Home extends Component {
     render() {
         let characters = ""
         if(this.props.characters){
+            console.log(`${this.props.characters}`);
             characters = this.props.characters.map((item, index)=>{
-                return <View><Text key={index}>{item.name}</Text></View>
+                let thumbnail = null;
+                if (item.thumbnail)
+                    thumbnail = item.thumbnail.path + '.' + item.thumbnail.extension;
+                
+                let textIndex = 'text-' + index;
+                let imageIndex = 'image-' + index;
+
+                let dimensions = Dimensions.get('window');
+                let screenWidth = dimensions.width;
+                return (
+                    <View>
+                        <Text key={textIndex}>{item.name}</Text>
+                        <Image key={imageIndex} style={{width: screenWidth, height: screenWidth}} source={{ uri: thumbnail }} />
+                    </View>
+                );
             });
         }
         return (
             <View style={styles.container}>
                 <Text style={styles.header}>Marvel Characters</Text>
-                {characters}
+                <ScrollView>
+                    {characters}
+                </ScrollView>
             </View>
         );
     }
-
+            // characters = this.props.characters.map((item, index)=>{
+            //     return (
+            //     <View>
+            //         <Text key={textIndex}>{item.name}</Text>
+            //         <Image key={imageIndex} style={styles.image} source={{uri: thumbnail}}/>
+            //     </View>);
+            // });
 }
 
 const styles = StyleSheet.create({
@@ -39,5 +64,9 @@ const styles = StyleSheet.create({
     header:{
         fontWeight: "bold",
         marginBottom:20
+    },
+    image: {
+        width: 400,
+        height: 400
     }
 })
